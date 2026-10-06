@@ -19,8 +19,8 @@ export const kpis = [
 
 export const revenue = ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"].map((m, i) => ({
   month: m,
-  revenue: [182, 96, 74, 210, 168, 120, 135][i] * 100000,
-  collections: [150, 120, 82, 165, 172, 131, 118][i] * 100000,
+  revenue: [182, 96, 74, 210, 168, 120, 135][i]! * 100000,
+  collections: [150, 120, 82, 165, 172, 131, 118][i]! * 100000,
 }));
 export const ageing = [
   { bucket: "Current", amount: 21400000 },
@@ -38,8 +38,8 @@ export const budgetVsActual = [
 ].map((d) => ({ ...d, budget: d.budget * 1e5, commit: d.commit * 1e5, actual: d.actual * 1e5, available: d.available * 1e5 }));
 export const cashflow = ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"].map((m, i) => ({
   month: m,
-  incoming: [160, 118, 84, 172, 170, 133, 120][i] * 1e5,
-  outgoing: [-98, -104, -110, -125, -118, -112, -108][i] * 1e5,
+  incoming: [160, 118, 84, 172, 170, 133, 120][i]! * 1e5,
+  outgoing: [-98, -104, -110, -125, -118, -112, -108][i]! * 1e5,
 }));
 export const expenseBreakdown = [
   { name: "Salaries", value: 54 },
@@ -66,25 +66,25 @@ const invStatuses = ["Paid", "Partially Paid", "Overdue", "Sent", "Draft", "Paid
 export type Student = { id: string; name: string; programme: string; batch: string; campus: string; balance: number };
 export const students: Student[] = Array.from({ length: 16 }, (_, i) => ({
   id: `STU-${(24001 + i * 37).toString()}`,
-  name: `${first[i]} ${last[i % last.length]}`,
-  programme: programmes[i % programmes.length],
+  name: `${first[i]!} ${last[i % last.length]!}`,
+  programme: programmes[i % programmes.length]!,
   batch: `${2023 + (i % 3)}–${2027 + (i % 3)}`,
-  campus: campuses[i % 3],
-  balance: [0, 42500, 118000, 86000, 0, 23500, 64000, 152000, 0, 31000, 9800, 76500, 0, 54000, 128000, 17500][i],
+  campus: campuses[i % 3]!,
+  balance: [0, 42500, 118000, 86000, 0, 23500, 64000, 152000, 0, 31000, 9800, 76500, 0, 54000, 128000, 17500][i]!,
 }));
 
 export type Invoice = { no: string; studentId: string; student: string; programme: string; campus: string; date: string; due: string; amount: number; paid: number; status: string; term: string };
 export const invoices: Invoice[] = Array.from({ length: 28 }, (_, i) => {
-  const s = students[i % students.length];
-  const amount = [185000, 92500, 142000, 68000, 210000, 76500, 118000][i % 7];
-  const status = invStatuses[i % invStatuses.length];
+  const s = students[i % students.length]!;
+  const amount = [185000, 92500, 142000, 68000, 210000, 76500, 118000][i % 7]!;
+  const status = invStatuses[i % invStatuses.length]!;
   const paid = status === "Paid" ? amount : status === "Partially Paid" ? Math.round(amount * 0.45) : 0;
   return {
     no: `INV-26-${(1042 + i).toString().padStart(5, "0")}`,
     studentId: s.id, student: s.name, programme: s.programme, campus: s.campus,
-    date: `${String(1 + (i % 28)).padStart(2, "0")} ${["Jul", "Aug", "Sep"][i % 3]} 2026`,
-    due: `${String(1 + ((i + 14) % 28)).padStart(2, "0")} ${["Aug", "Sep", "Oct"][i % 3]} 2026`,
-    amount, paid, status, term: ["Term 1", "Term 2", "Semester 1"][i % 3],
+    date: `${String(1 + (i % 28)).padStart(2, "0")} ${["Jul", "Aug", "Sep"][i % 3]!} 2026`,
+    due: `${String(1 + ((i + 14) % 28)).padStart(2, "0")} ${["Aug", "Sep", "Oct"][i % 3]!} 2026`,
+    amount, paid, status, term: ["Term 1", "Term 2", "Semester 1"][i % 3]!,
   };
 });
 
@@ -95,25 +95,25 @@ export const vendors: Vendor[] = [
   "Kothari & Associates LLP", "Pragati Book House", "Voltline Electricals", "Apex Security Services", "Brightboard Edtech",
   "Orion Furniture Works", "Clearwater Utilities",
 ].map((n, i) => ({
-  id: `VEN-${(3001 + i).toString()}`, name: n, category: vendorCats[i % vendorCats.length],
-  taxId: `29AAB${["C", "F", "P", "K"][i % 4]}${(4410 + i * 13)}${"QRSTUV"[i % 6]}1Z${i % 9}`,
-  payables: [842000, 315000, 228500, 96000, 174000, 450000, 38500, 126000, 210000, 0, 87500, 64200][i],
-  overdue: [120000, 0, 48000, 0, 32000, 150000, 0, 0, 60000, 0, 0, 12000][i],
-  status: ["Active", "Active", "Active", "Active", "Pending Verification", "Active", "Active", "On Hold", "Active", "Inactive", "Active", "Active"][i],
-  bank: ["Verified", "Verified", "Verified", "Verified", "Pending", "Verified", "Verified", "Failed", "Verified", "Verified", "Pending", "Verified"][i],
+  id: `VEN-${(3001 + i).toString()}`, name: n, category: vendorCats[i % vendorCats.length]!,
+  taxId: `29AAB${["C", "F", "P", "K"][i % 4]!}${(4410 + i * 13)}${"QRSTUV"[i % 6]!}1Z${i % 9}`,
+  payables: [842000, 315000, 228500, 96000, 174000, 450000, 38500, 126000, 210000, 0, 87500, 64200][i]!,
+  overdue: [120000, 0, 48000, 0, 32000, 150000, 0, 0, 60000, 0, 0, 12000][i]!,
+  status: ["Active", "Active", "Active", "Active", "Pending Verification", "Active", "Active", "On Hold", "Active", "Inactive", "Active", "Active"][i]!,
+  bank: ["Verified", "Verified", "Verified", "Verified", "Pending", "Verified", "Verified", "Failed", "Verified", "Verified", "Pending", "Verified"][i]!,
 }));
 
 const billStatuses = ["Pending Approval", "Approved", "Partially Paid", "Paid", "Overdue", "On Hold", "Draft", "Rejected", "Approved", "Pending Approval"];
 const matches = ["MATCHED", "MATCHED", "VARIANCE", "MATCHED", "NON-PO REVIEW", "VARIANCE", "MATCHED", "NON-PO REVIEW", "MATCHED", "MATCHED"];
 export const bills = Array.from({ length: 20 }, (_, i) => {
-  const v = vendors[i % vendors.length];
-  const amount = [126000, 48500, 312000, 22800, 87000, 154000, 9600, 41000, 268000, 73500][i % 10];
-  const status = billStatuses[i % 10];
+  const v = vendors[i % vendors.length]!;
+  const amount = [126000, 48500, 312000, 22800, 87000, 154000, 9600, 41000, 268000, 73500][i % 10]!;
+  const status = billStatuses[i % 10]!;
   return {
     no: `BILL-${(7801 + i).toString()}`, vendor: v.name, vendorId: v.id,
     date: `${String(2 + (i % 26)).padStart(2, "0")} Sep 2026`, due: `${String(2 + ((i + 9) % 26)).padStart(2, "0")} Oct 2026`,
     amount, balance: status === "Paid" ? 0 : status === "Partially Paid" ? amount / 2 : amount, status,
-    match: matches[i % 10], po: matches[i % 10] === "NON-PO REVIEW" ? "—" : `PO-${5400 + i}`,
+    match: matches[i % 10]!, po: matches[i % 10]! === "NON-PO REVIEW" ? "—" : `PO-${5400 + i}`,
   };
 });
 
