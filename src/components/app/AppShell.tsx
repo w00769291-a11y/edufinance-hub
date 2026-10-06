@@ -71,7 +71,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               const item = (
                 <div key={n.label}>
                   <div className={cn("group flex items-center rounded-md text-[13px]", active ? "bg-nav-active text-primary-foreground" : "text-nav-muted hover:bg-nav-hover hover:text-nav-foreground")}>
-                    <Link to={n.to} className={cn("flex flex-1 items-center gap-2.5 px-2.5 py-1.5", collapsed && "justify-center px-0")}>
+                    <Link to={n.to as "/"} className={cn("flex flex-1 items-center gap-2.5 px-2.5 py-1.5", collapsed && "justify-center px-0")}>
                       <n.icon className="h-4 w-4 shrink-0" />
                       {!collapsed && <span className="truncate">{n.label}</span>}
                     </Link>
@@ -84,7 +84,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   {expanded && (
                     <div className="ml-6 mt-0.5 space-y-0.5 border-l border-sidebar-border pl-2">
                       {n.children!.map((c) => (
-                        <Link key={c.label} to={c.to} className={cn("block rounded px-2 py-1 text-[12.5px]", pathname === c.to ? "font-semibold text-nav-foreground" : "text-nav-muted hover:text-nav-foreground")}>{c.label}</Link>
+                        <Link key={c.label} to={c.to as "/"} className={cn("block rounded px-2 py-1 text-[12.5px]", pathname === c.to ? "font-semibold text-nav-foreground" : "text-nav-muted hover:text-nav-foreground")}>{c.label}</Link>
                       ))}
                     </div>
                   )}
@@ -111,7 +111,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 <DropdownMenuTrigger className="flex h-8 items-center gap-1 rounded-md bg-primary px-2.5 text-[13px] font-medium text-primary-foreground hover:bg-primary/90"><Plus className="h-4 w-4" /> New</DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-52">
                   <DropdownMenuLabel className="text-xs text-muted-foreground">Quick Create</DropdownMenuLabel>
-                  {quickCreate.map(([l, to]) => <DropdownMenuItem key={l} onClick={() => navigate({ to })}>{l}</DropdownMenuItem>)}
+                  {quickCreate.map(([l, to]) => <DropdownMenuItem key={l} onClick={() => navigate({ to: to as "/" })}>{l}</DropdownMenuItem>)}
                 </DropdownMenuContent>
               </DropdownMenu>
               <Selector value={campus} options={campuses} onChange={setCampus} />
@@ -133,7 +133,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem>My profile</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate({ to: "/settings" })}>Settings</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate({ to: "/" })}>Settings</DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>Sign out</DropdownMenuItem>
                 </DropdownMenuContent>
@@ -149,16 +149,16 @@ export function AppShell({ children }: { children: ReactNode }) {
         <CommandList>
           <CommandEmpty>No results.</CommandEmpty>
           <CommandGroup heading="Pages">
-            {nav.map((n) => <CommandItem key={n.label} onSelect={() => { navigate({ to: n.to }); setSearchOpen(false); }}><n.icon className="mr-2 h-4 w-4" />{n.label}</CommandItem>)}
+            {nav.map((n) => <CommandItem key={n.label} onSelect={() => { navigate({ to: n.to as "/" }); setSearchOpen(false); }}><n.icon className="mr-2 h-4 w-4" />{n.label}</CommandItem>)}
           </CommandGroup>
           <CommandGroup heading="Students">
-            {students.slice(0, 8).map((s) => <CommandItem key={s.id} value={`${s.name} ${s.id}`} onSelect={() => { navigate({ to: "/fees/$studentId", params: { studentId: s.id } }); setSearchOpen(false); }}>{s.name}<span className="ml-auto text-xs text-muted-foreground">{s.id}</span></CommandItem>)}
+            {students.slice(0, 8).map((s) => <CommandItem key={s.id} value={`${s.name} ${s.id}`} onSelect={() => { navigate({ to: "/" }); setSearchOpen(false); }}>{s.name}<span className="ml-auto text-xs text-muted-foreground">{s.id}</span></CommandItem>)}
           </CommandGroup>
           <CommandGroup heading="Vendors">
-            {vendors.slice(0, 6).map((v) => <CommandItem key={v.id} value={`${v.name} ${v.id}`} onSelect={() => { navigate({ to: "/vendors/$vendorId", params: { vendorId: v.id } }); setSearchOpen(false); }}>{v.name}<span className="ml-auto text-xs text-muted-foreground">{v.id}</span></CommandItem>)}
+            {vendors.slice(0, 6).map((v) => <CommandItem key={v.id} value={`${v.name} ${v.id}`} onSelect={() => { navigate({ to: "/" }); setSearchOpen(false); }}>{v.name}<span className="ml-auto text-xs text-muted-foreground">{v.id}</span></CommandItem>)}
           </CommandGroup>
           <CommandGroup heading="Invoices">
-            {invoices.slice(0, 6).map((i) => <CommandItem key={i.no} value={`${i.no} ${i.student}`} onSelect={() => { navigate({ to: "/fees" }); setSearchOpen(false); }}>{i.no}<span className="ml-auto text-xs text-muted-foreground">{i.student}</span></CommandItem>)}
+            {invoices.slice(0, 6).map((i) => <CommandItem key={i.no} value={`${i.no} ${i.student}`} onSelect={() => { navigate({ to: "/" }); setSearchOpen(false); }}>{i.no}<span className="ml-auto text-xs text-muted-foreground">{i.student}</span></CommandItem>)}
           </CommandGroup>
         </CommandList>
       </CommandDialog>
