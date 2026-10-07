@@ -28,7 +28,7 @@ function NewInvoice() {
   const s = students.find((x) => x.id === student)!;
 
   const save = (send: boolean) => {
-    if (!lines.length || total <= 0) return toast.error("Add at least one line with an amount");
+    if (!lines.length || total <= 0) { toast.error("Add at least one line with an amount"); return; }
     toast.success(send ? "Invoice submitted for approval" : "Draft saved", { description: `${s.name} · ${inr(total)}` });
     navigate({ to: "/fees" });
   };
