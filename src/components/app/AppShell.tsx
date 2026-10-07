@@ -45,8 +45,8 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const [open, setOpen] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [campus, setCampus] = useState(campuses[0]);
-  const [fy, setFy] = useState(financialYears[0]);
+  const [campus, setCampus] = useState(campuses[0]!);
+  const [fy, setFy] = useState(financialYears[0]!);
   const { pathname } = useLocation();
   const navigate = useNavigate();
 

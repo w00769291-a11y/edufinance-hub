@@ -45,12 +45,12 @@ function Dashboard() {
             <tbody>
               {actions.map((a) => (
                 <tr key={a.title} className="border-b last:border-0 hover:bg-accent/40">
-                  <td className="px-4 py-2.5 font-medium"><Link to={a.to} className="hover:text-primary">{a.title}</Link></td>
+                  <td className="px-4 py-2.5 font-medium"><Link to={a.to as "/"} className="hover:text-primary">{a.title}</Link></td>
                   <td className="num px-4 py-2.5 font-semibold">{a.count}</td>
                   <td className="px-4 py-2.5"><StatusBadge status={a.severity} /></td>
                   <td className="px-4 py-2.5 text-muted-foreground">{a.owner}</td>
                   <td className="px-4 py-2.5 text-muted-foreground">{a.due}</td>
-                  <td className="px-4 py-2.5 text-right"><Link to={a.to} className="text-xs font-semibold text-primary">Review →</Link></td>
+                  <td className="px-4 py-2.5 text-right"><Link to={a.to as "/"} className="text-xs font-semibold text-primary">Review →</Link></td>
                 </tr>
               ))}
             </tbody>

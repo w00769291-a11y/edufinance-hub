@@ -36,7 +36,7 @@ function Payments() {
   ];
   const add = () => {
     const amt = Number(f.amount);
-    if (!amt || amt <= 0) return toast.error("Enter a valid amount");
+    if (!amt || amt <= 0) { toast.error("Enter a valid amount"); return; }
     const no = `RCT-26-${(813 + rows.length - seed.length).toString().padStart(5, "0")}`;
     setRows([{ no, date: "07 Oct 2026", student: f.student, mode: f.mode, ref: f.ref || "—", amount: amt, status: "Posted" }, ...rows]);
     setOpen(false); setF({ ...f, ref: "", amount: "" });
