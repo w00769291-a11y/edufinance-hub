@@ -10,43 +10,91 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as FeesRouteImport } from './routes/fees'
+import { Route as BankingRouteImport } from './routes/banking'
+import { Route as PaymentsRouteImport } from './routes/payments'
+import { Route as ReconciliationRouteImport } from './routes/reconciliation'
+import { Route as FeesIndexRouteImport } from './routes/fees.index'
+import { Route as FeesNewRouteImport } from './routes/fees.new'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const FeesRoute = FeesRouteImport.update({
-  id: '/fees',
-  path: '/fees',
+const BankingRoute = BankingRouteImport.update({
+  id: '/banking',
+  path: '/banking',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentsRoute = PaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReconciliationRoute = ReconciliationRouteImport.update({
+  id: '/reconciliation',
+  path: '/reconciliation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeesIndexRoute = FeesIndexRouteImport.update({
+  id: '/fees/',
+  path: '/fees/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeesNewRoute = FeesNewRouteImport.update({
+  id: '/fees/new',
+  path: '/fees/new',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/fees': typeof FeesRoute
+  '/banking': typeof BankingRoute
+  '/payments': typeof PaymentsRoute
+  '/reconciliation': typeof ReconciliationRoute
+  '/fees/new': typeof FeesNewRoute
+  '/fees/': typeof FeesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/fees': typeof FeesRoute
+  '/banking': typeof BankingRoute
+  '/payments': typeof PaymentsRoute
+  '/reconciliation': typeof ReconciliationRoute
+  '/fees/new': typeof FeesNewRoute
+  '/fees': typeof FeesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/fees': typeof FeesRoute
+  '/banking': typeof BankingRoute
+  '/payments': typeof PaymentsRoute
+  '/reconciliation': typeof ReconciliationRoute
+  '/fees/new': typeof FeesNewRoute
+  '/fees/': typeof FeesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/fees'
+  fullPaths:
+    '/' | '/banking' | '/payments' | '/reconciliation' | '/fees/new' | '/fees/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/fees'
-  id: '__root__' | '/' | '/fees'
+  to: '/' | '/banking' | '/payments' | '/reconciliation' | '/fees/new' | '/fees'
+  id:
+    | '__root__'
+    | '/'
+    | '/banking'
+    | '/payments'
+    | '/reconciliation'
+    | '/fees/new'
+    | '/fees/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  FeesRoute: typeof FeesRoute
+  BankingRoute: typeof BankingRoute
+  PaymentsRoute: typeof PaymentsRoute
+  ReconciliationRoute: typeof ReconciliationRoute
+  FeesNewRoute: typeof FeesNewRoute
+  FeesIndexRoute: typeof FeesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,11 +106,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/fees': {
-      id: '/fees'
+    '/banking': {
+      id: '/banking'
+      path: '/banking'
+      fullPath: '/banking'
+      preLoaderRoute: typeof BankingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payments': {
+      id: '/payments'
+      path: '/payments'
+      fullPath: '/payments'
+      preLoaderRoute: typeof PaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reconciliation': {
+      id: '/reconciliation'
+      path: '/reconciliation'
+      fullPath: '/reconciliation'
+      preLoaderRoute: typeof ReconciliationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fees/': {
+      id: '/fees/'
       path: '/fees'
-      fullPath: '/fees'
-      preLoaderRoute: typeof FeesRouteImport
+      fullPath: '/fees/'
+      preLoaderRoute: typeof FeesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fees/new': {
+      id: '/fees/new'
+      path: '/fees/new'
+      fullPath: '/fees/new'
+      preLoaderRoute: typeof FeesNewRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -70,7 +146,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  FeesRoute: FeesRoute,
+  BankingRoute: BankingRoute,
+  PaymentsRoute: PaymentsRoute,
+  ReconciliationRoute: ReconciliationRoute,
+  FeesNewRoute: FeesNewRoute,
+  FeesIndexRoute: FeesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
